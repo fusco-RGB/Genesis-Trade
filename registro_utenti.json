@@ -1,0 +1,24 @@
+[
+    {
+        "username": "admin",
+        "password": "admin",
+        "numero carta": "000000000000",
+        "titolare carta": "d",
+        "scadenza carta": "12/26",
+        "cvv carta": "123",
+        "conto": "9999999978362021965836845056.00",
+        "holdings": {
+            "OBS": 4,
+            "ATE": 3
+        }
+    },
+    {
+        "username": "prime",
+        "password": "Napoli26@",
+        "numero carta": "111111111112",
+        "titolare carta": "d",
+        "scadenza carta": "12/26",
+        "cvv carta": "123",
+        "conto": "101.00"
+    }
+]
