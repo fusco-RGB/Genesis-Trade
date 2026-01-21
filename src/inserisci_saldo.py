@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import gestione_json as gj
+import src.gestione_json as gj
 import tkinter.messagebox as mb
 
 

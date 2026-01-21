@@ -4,9 +4,9 @@ Frame per l'inserimento dei dati della carta associata a un utente appena regist
 Contiene validazioni sul numero, scadenza e CVV.
 """
 import customtkinter as ctk
-import gestione_json as gj
+import src.gestione_json as gj
 import tkinter.messagebox as mb
-import tkinter as tk
+import re
 
 
 class Registrazione_carta(ctk.CTkFrame):

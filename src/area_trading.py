@@ -4,10 +4,11 @@ Interfaccia principale per area trading: mostra menu a sinistra e grafico a cand
 Commenti e testi in questo file sono in italiano per chiarezza.
 """
 import customtkinter as ctk
-import gbm
-import gestione_json as gj
+import src.gbm as gbm
+import src.gestione_json as gj
 import tkinter.messagebox as mb
 import json
+import os
 from datetime import datetime, timedelta
 import matplotlib
 matplotlib.use('TkAgg')
@@ -30,7 +31,9 @@ class App(ctk.CTkFrame):
 
     def _load_registry(self):
         try:
-            with open('registro_crypto.json', 'r', encoding='utf-8') as f:
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            crypto_file = os.path.join(base_dir, 'data', 'registro_crypto.json')
+            with open(crypto_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
         except Exception:
             data = []
@@ -43,7 +46,7 @@ class App(ctk.CTkFrame):
         left.pack(side='left', anchor='w', padx=12, pady=12, fill='y')
 
         # app title / logo area
-        self.app_label = ctk.CTkLabel(left, text="CryptoSim", text_color="white", font=("Helvetica", 16, "bold"))
+        self.app_label = ctk.CTkLabel(left, text="Genesis Trade", text_color="white", font=("Helvetica", 16, "bold"))
         self.app_label.pack(pady=(8,18))
 
         btn_kwargs = dict(fg_color="#000000", hover_color="#871515ff", width=140, corner_radius=8)
@@ -68,9 +71,9 @@ class App(ctk.CTkFrame):
         # header above chart: shows selected symbol and live price
         header = ctk.CTkFrame(center_wrapper, fg_color="transparent")
         header.pack(fill='x', pady=(12,4))
-        self.symbol_label = ctk.CTkLabel(header, text="Seleziona asset", font=("Helvetica", 18, "bold"))
+        self.symbol_label = ctk.CTkLabel(header, text="Seleziona asset", font=("Helvetica", 18, "bold"), text_color="#000000")
         self.symbol_label.pack(side='left', padx=12)
-        self.price_label = ctk.CTkLabel(header, text="--", font=("Helvetica", 14))
+        self.price_label = ctk.CTkLabel(header, text="--", font=("Helvetica", 14), text_color="#000000")
         self.price_label.pack(side='left', padx=8)
 
         # chart container centered inside center_wrapper

@@ -11,7 +11,9 @@ from typing import Any
 
 class GestoreDati:
     def __init__(self, nome_file: str = "registro_utenti.json"):
-        self.nome_file = nome_file
+        # Percorso relativo alla cartella data/ dalla radice del progetto
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.nome_file = os.path.join(base_dir, 'data', nome_file)
 
     def serializza(self, dati: Any) -> None:
         """Salva una struttura Python (dict o list) in JSON mantenendo indentazione e unicode.

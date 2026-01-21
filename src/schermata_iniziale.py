@@ -3,10 +3,10 @@ schermata_iniziale.py
 Finestra principale dell'applicazione: login, registrazione e accesso all'area trading.
 """
 import customtkinter as ctk 
-import registrati   
-import gestione_json as gj
-import area_trading
-import inserisci_saldo
+import src.registrati as registrati   
+import src.gestione_json as gj
+import src.area_trading as area_trading
+import src.inserisci_saldo as inserisci_saldo
 
 class schermata_inizale (ctk.CTk):
 
@@ -15,7 +15,7 @@ class schermata_inizale (ctk.CTk):
         # Aspetto e titolo applicazione
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
-        self.title("CryptoSim - Demo")
+        self.title("Genesis Trade - Demo")
         self.configure(fg_color="#0b0b0b")
         self.geometry("800x600")
         self.after(100, lambda: self.state("zoomed"))
@@ -25,58 +25,60 @@ class schermata_inizale (ctk.CTk):
                                         fg_color="#121216", 
                                         corner_radius=14)
         self.frame_login.place(relx=0.5, rely=0.5, anchor="center")
+        self.frame_reg = None
+        self.frame_next = None
         self.setup_login_widgets()
     def setup_login_widgets(self):
-            self.title_label = ctk.CTkLabel(self.frame_login, 
+        self.title_label = ctk.CTkLabel(self.frame_login, 
                                         text="BENVENUTO", 
                                         text_color="#FFFFFF",
                                         font=("Helvetica", 26, "bold"))
-            self.title_label.pack(pady=(40, 20))
+        self.title_label.pack(pady=(40, 20))
         # Campo Username
-            self.user_entry = ctk.CTkEntry(self.frame_login, 
+        self.user_entry = ctk.CTkEntry(self.frame_login, 
                                        placeholder_text="Username",
                                        width=250,
                                        fg_color="#1b1b1b",
                                        text_color="#FFFFFF",
                                        border_color="#333333")
 
-            self.user_entry.pack(pady=10)
+        self.user_entry.pack(pady=10)
 
         # Campo Password (con show="*")
-            self.pass_entry = ctk.CTkEntry(self.frame_login, 
+        self.pass_entry = ctk.CTkEntry(self.frame_login, 
                                        placeholder_text="Password",
                                        show="*",
                                        width=250,
                                        fg_color="#1b1b1b",
                                        text_color="#FFFFFF",
                                        border_color="#333333")
-            self.pass_entry.pack(pady=10)
+        self.pass_entry.pack(pady=10)
         # Bottone toggle password
-            self.toggle_btn = ctk.CTkButton(self.frame_login, 
+        self.toggle_btn = ctk.CTkButton(self.frame_login, 
                                               text='Mostra', 
                                               command=self.toggle_password,
                                               fg_color="#1f6feb",
                                               hover_color="#1665c1",
                                               width=100)
-            self.toggle_btn.pack(pady=(10))
-# Bottone Accedi
-            self.login_button = ctk.CTkButton(self.frame_login, 
+        self.toggle_btn.pack(pady=(10))
+        # Bottone Accedi
+        self.login_button = ctk.CTkButton(self.frame_login, 
                                           text="ACCEDI", 
                                           command=self.azione_login,
                                           fg_color="#1f6feb",
                                           hover_color="#1665c1",
                                           width=200,
                                           corner_radius=12)
-            self.login_button.pack(pady=(30, 5))
+        self.login_button.pack(pady=(30, 5))
 
-            self.login_button = ctk.CTkButton(self.frame_login, 
+        self.login_button = ctk.CTkButton(self.frame_login, 
                                           text="REGISTRATI", 
                                           fg_color="#2b2b2b",
                                           hover_color="#3b3b3b",
                                           command=self.passa_a_registrati,
                                           width=200,
                                           corner_radius=12)
-            self.login_button.pack(pady=30)        
+        self.login_button.pack(pady=30)        
     def passa_a_registrati(self):
         # Nascondi il frame del login
         self.frame_login.place_forget() 
@@ -86,11 +88,11 @@ class schermata_inizale (ctk.CTk):
         self.frame_reg.place(relx=0.5, rely=0.5, anchor="center")
     def toggle_password(self):
         if self.pass_entry.cget('show') == '*':
-              self.pass_entry.configure(show='')
-              self.toggle_btn.configure(text='Nascondi')
+            self.pass_entry.configure(show='')
+            self.toggle_btn.configure(text='Nascondi')
         else:
-              self.pass_entry.configure(show='*')
-              self.toggle_btn.configure(text='Mostra')
+            self.pass_entry.configure(show='*')
+            self.toggle_btn.configure(text='Mostra')
 
     def azione_login(self):
         print(f"Tentativo di login per: {self.user_entry.get()}")
@@ -122,10 +124,10 @@ class schermata_inizale (ctk.CTk):
 
     def _mostra_area_trading(self, username):
         # dopo aver inserito il saldo, mostra l'area trading (frame, non nuova finestra)
-        try:
-            if hasattr(self, 'frame_next'):
+        if self.frame_next:
+            try:
                 self.frame_next.place_forget()
-        except Exception:
-            pass
+            except Exception:
+                pass
         self.frame_reg = area_trading.App(self, username=username)
         self.frame_reg.place(relx=0.0, rely=0.5, anchor="w")

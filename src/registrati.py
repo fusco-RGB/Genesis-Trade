@@ -4,10 +4,10 @@ Frame per la registrazione di un nuovo utente. Contiene la validazione della pas
 invia i dati a `gestione_json.GestoreDati` per la persistenza su file.
 """
 import customtkinter as ctk
-import gestione_json
-import validazione
+import src.gestione_json as gestione_json
+import src.validazione as validazione
 import tkinter.messagebox as mb
-import registrazione_carta
+import src.registrazione_carta as registrazione_carta
 
 
 
@@ -16,21 +16,21 @@ class Registrazione(ctk.CTkFrame):
     """Frame di registrazione che può essere inserito nella schermata principale."""
 
     def __init__(self, master, **kwargs):
-        super().__init__(master, width=350, height=450, fg_color="#FFFFFF", corner_radius=20, **kwargs)
+        super().__init__(master, width=350, height=450, fg_color="#121216", corner_radius=20, **kwargs)
         self.master = master
         self.setup_registrazione_widgets()
 
     def setup_registrazione_widgets(self):
-        self.title_label = ctk.CTkLabel(self, text="registrati", text_color="#000000",
+        self.title_label = ctk.CTkLabel(self, text="REGISTRATI", text_color="#FFFFFF",
                                         font=("Helvetica", 24, "bold"))
         self.title_label.pack(pady=(40, 20))
 
         self.user_entry = ctk.CTkEntry(self, placeholder_text="Username", width=250,
-                                       fg_color="#f0f0f0", text_color="#000000", border_color="#cccccc")
+                                       fg_color="#1b1b1b", text_color="#FFFFFF", border_color="#333333")
         self.user_entry.pack(pady=10)
 
         self.pass_entry = ctk.CTkEntry(self, placeholder_text="Password", width=250,
-                                       fg_color="#f0f0f0", text_color="#000000", border_color="#cccccc", show="*")
+                                       fg_color="#1b1b1b", text_color="#FFFFFF", border_color="#333333", show="*")
         self.pass_entry.pack(pady=10)
 
         # Label per mostrare errori di validazione della password (sotto il campo)
@@ -39,15 +39,15 @@ almeno 8 caratteri,
 maiuscole,
 minuscole,
 numeri,
-simboli""", text_color="#000000",
+simboli""", text_color="#FFFFFF",
                            font=("Helvetica", 10))
         self.pw_error_label.pack(pady=(0, 8))
         # Bottone per mostrare/nascondere la password
         self.toggle_btn = ctk.CTkButton(self,
                          text='Mostra',
                          command=self.toggle_password,
-                         fg_color="#000000",
-                         hover_color="#333333",
+                         fg_color="#1f6feb",
+                         hover_color="#1665c1",
                          width=100)
         self.toggle_btn.pack(pady=(10))
        
@@ -55,16 +55,16 @@ simboli""", text_color="#000000",
         # Bottone Registrati (usiamo questo frame come parent)
         self.register_button = ctk.CTkButton(self, text="REGISTRATI",
                                              command=self.azione_registrazione,
-                                             fg_color="#000000",
-                                             hover_color="#333333",
+                                             fg_color="#1f6feb",
+                                             hover_color="#1665c1",
                                              width=200)
         self.register_button.pack(pady=20)
 
         # Bottone Annulla: torna al login senza registrare
         self.annulla_button = ctk.CTkButton(self, text="ANNULLA",
                                             command=self.torna_al_login,
-                                            fg_color="#777777",
-                                            hover_color="#555555",
+                                            fg_color="#2b2b2b",
+                                            hover_color="#3b3b3b",
                                             width=120)
         self.annulla_button.pack(pady=(0, 10))
 
@@ -144,11 +144,11 @@ simboli""", text_color="#FF0000")
             raise RuntimeError(f"Impossibile salvare l'utente: {e}")
     def toggle_password(self):
         if self.pass_entry.cget('show') == '*':
-              self.pass_entry.configure(show='')
-              self.toggle_btn.configure(text='Nascondi')
+            self.pass_entry.configure(show='')
+            self.toggle_btn.configure(text='Nascondi')
         else:
-              self.pass_entry.configure(show='*')
-              self.toggle_btn.configure(text='Mostra')
+            self.pass_entry.configure(show='*')
+            self.toggle_btn.configure(text='Mostra')
     def torna_al_login(self):
         """Rimuove il frame di registrazione e mostra di nuovo il frame di login
         della finestra principale (master)."""

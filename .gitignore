@@ -1,7 +1,12 @@
-# Cartelle da ignorare
-_pycache_/
-Train area crypto/
-
-# Eventuali altri file temporanei di Python
+# Python
+__pycache__/
 *.py[cod]
-*$py.class
+
+# Virtual environments
+.venv/
+
+# IDE
+.vscode/
+
+# Environment variables
+.env
